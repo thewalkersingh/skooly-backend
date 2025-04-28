@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    # default active if none specified
+    active: dev
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true      # you can suppress in prod if you like

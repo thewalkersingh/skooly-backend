@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://prod-db-host:3306/skooly?useSSL=true&serverTimezone=UTC
+    username: prod_user
+    password: prod_secret
+
+jpa:
+  hibernate:
+    ddl-auto: validate   # don’t auto-create schema in prod
+
+logging:
+  level:
+    root: INFO
