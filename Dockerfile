@@ -1,6 +1,5 @@
 # Importing JDK and copying required files
-FROM maven:3.9.5-openjdk-21 AS build
-WORKDIR /app
+FROM maven:3.9.5-eclipse-temurin-21 AS build
 COPY pom.xml .
 COPY src src
 COPY README.md .
