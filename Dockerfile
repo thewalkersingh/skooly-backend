@@ -1,16 +1,23 @@
-# Build stage using Maven + Java 21
-FROM maven:3.9.4-eclipse-temurin-21 AS build
+# Importing JDK and copying required files
+FROM maven:3.9.5-openjdk-21 AS build
 WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+COPY pom.xml .
+COPY src src
+COPY README.md .
 
-# Runtime stage using a slim Eclipse Temurin Java 21 JRE
-FROM eclipse-temurin:21-jre-slim
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+# Copy Maven wrapper
+COPY mvnw .
+COPY .mvn .mvn
 
-# Expose the Spring Boot port
+# Set execution permission for the Maven wrapper
+RUN chmod +x ./mvnw
+RUN ./mvnw clean package -DskipTests
+
+# Stage 2: Create the final Docker image using OpenJDK 21
+FROM openjdk:21-jdk-slim
+#VOLUME /tmp
+
+# Copy the JAR from the build stage
+COPY --from=build /target/skooly-backend-0.0.1-SNAPSHOT.jar skooly.jar
 EXPOSE 8080
-
-# Launch the app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","/skooly.jar"]
