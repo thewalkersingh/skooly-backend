@@ -1,3 +1,4 @@
+#application.yaml
 spring:
   profiles:
     active: dev # default profile, overridden by Render via ENV
