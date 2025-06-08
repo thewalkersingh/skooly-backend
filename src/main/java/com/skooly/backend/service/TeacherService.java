@@ -1,9 +1,11 @@
 package com.skooly.backend.service;
+import com.skooly.backend.dto.GradeDTO;
 import com.skooly.backend.dto.TeacherDTO;
 import com.skooly.backend.entity.School;
 import com.skooly.backend.entity.Teacher;
 import com.skooly.backend.exception.SchoolNotFoundException;
 import com.skooly.backend.exception.TeacherNotFoundException;
+import com.skooly.backend.mapper.GradeMapper;
 import com.skooly.backend.mapper.TeacherMapper;
 import com.skooly.backend.repository.SchoolRepository;
 import com.skooly.backend.repository.TeacherRepository;
@@ -18,13 +20,15 @@ public class TeacherService {
    private final TeacherRepository teacherRepository;
    private final TeacherMapper teacherMapper;
    private final SchoolRepository schoolRepository;
+   private final GradeMapper gradeMapper;
    
    @Autowired
    public TeacherService(TeacherRepository teacherRepository, TeacherMapper teacherMapper,
-		   SchoolRepository schoolRepository) {
+		   SchoolRepository schoolRepository, GradeMapper gradeMapper) {
 	  this.teacherRepository = teacherRepository;
 	  this.teacherMapper = teacherMapper;
 	  this.schoolRepository = schoolRepository;
+	  this.gradeMapper = gradeMapper;
    }
    
    public List<TeacherDTO> getAllTeachers() {
@@ -55,5 +59,15 @@ public class TeacherService {
    
    public void deleteTeacher(Long id) {
 	  teacherRepository.deleteById(id);
+   }
+   
+   public List<GradeDTO> getTeacherGradedAssignments(Long teacherId) {
+	  Teacher teacher = teacherRepository.findById(teacherId)
+										 .orElseThrow(() -> new TeacherNotFoundException("Teacher not found"));
+	  
+	  return teacher.getGradedAssignments()
+					.stream()
+					.map(gradeMapper::toDTO)
+					.collect(Collectors.toList());
    }
 }

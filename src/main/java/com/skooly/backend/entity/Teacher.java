@@ -40,4 +40,7 @@ public class Teacher {
    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    @JsonManagedReference   // Managed side for Teacher->Course relationship.
    private List<Course> courses = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "gradedBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+   private List<Grade> gradedAssignments = new ArrayList<>();
 }

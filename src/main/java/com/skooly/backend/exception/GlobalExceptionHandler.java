@@ -12,7 +12,6 @@ public class GlobalExceptionHandler {
 	  return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
    }
    
-   // Add more exception handlers for different custom exceptions or generic handlers
    @ExceptionHandler(Exception.class)
    public ResponseEntity<?> handleGenericException(Exception ex) {
 	  return new ResponseEntity<>("An error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -20,6 +19,21 @@ public class GlobalExceptionHandler {
    
    @ExceptionHandler(StudentNotFoundException.class)
    public ResponseEntity<?> handleStudentNotFoundException(StudentNotFoundException ex) {
+	  return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+   }
+   
+   @ExceptionHandler(CourseNotFoundException.class)
+   public ResponseEntity<?> handleCourseNotFoundException(CourseNotFoundException ex) {
+	  return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+   }
+   
+   @ExceptionHandler(AssignmentNotFoundException.class)
+   public ResponseEntity<?> handleAssignmentNotFoundException(AssignmentNotFoundException ex) {
+	  return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+   }
+   
+   @ExceptionHandler(SubmissionNotFoundException.class)
+   public ResponseEntity<?> handleSubmissionNotFoundException(SubmissionNotFoundException ex) {
 	  return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
    }
 }

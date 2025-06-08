@@ -1,4 +1,5 @@
 package com.skooly.backend;
+import io.swagger.v3.oas.models.annotations.OpenAPI31;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +9,7 @@ import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
 
+@OpenAPI31
 @SpringBootApplication
 public class SkoolyApplication {
    private final Environment env;

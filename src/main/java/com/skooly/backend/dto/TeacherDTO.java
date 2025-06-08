@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -30,4 +32,5 @@ public class TeacherDTO {
    
    @NotNull(message = "School ID is required")
    private Long schoolId;
+   private List<Long> gradedAssignmentIds;
 }

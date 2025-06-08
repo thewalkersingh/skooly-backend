@@ -2,6 +2,8 @@ package com.skooly.backend.dto;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -37,4 +39,5 @@ public class StudentDTO {
    
    @NotNull(message = "School ID is required")
    private Long schoolId;
+   private List<Long> submissionIds;
 }

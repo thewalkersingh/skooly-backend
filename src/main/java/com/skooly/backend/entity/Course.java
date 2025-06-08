@@ -26,7 +26,6 @@ public class Course {
    private String name;        // Course title
    private String description; // Optional description
    private String schedule;    // You can store schedule details as a string
-   // Many courses can be assigned to one teacher.
    @ManyToOne
    @JoinColumn(name = "teacher_id")
    @JsonBackReference   // Prevents infinite recursion when serializing Teacher->Course->Teacher
@@ -40,4 +39,7 @@ public class Course {
    )
    @JsonManagedReference(value = "course-student")
    private List<Student> students = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+   private List<Assignment> assignments = new ArrayList<>();
 }

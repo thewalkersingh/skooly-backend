@@ -1,10 +1,12 @@
 package com.skooly.backend.service;
 import com.skooly.backend.dto.StudentDTO;
+import com.skooly.backend.dto.SubmissionDTO;
 import com.skooly.backend.entity.School;
 import com.skooly.backend.entity.Student;
 import com.skooly.backend.exception.SchoolNotFoundException;
 import com.skooly.backend.exception.StudentNotFoundException;
 import com.skooly.backend.mapper.StudentMapper;
+import com.skooly.backend.mapper.SubmissionMapper;
 import com.skooly.backend.repository.SchoolRepository;
 import com.skooly.backend.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,15 @@ public class StudentService {
    private final StudentRepository studentRepository;
    private final StudentMapper studentMapper;
    private final SchoolRepository schoolRepository;
+   private final SubmissionMapper submissionMapper;
    
    @Autowired
    public StudentService(StudentRepository studentRepository, StudentMapper studentMapper,
-		   SchoolRepository schoolRepository) {
+		   SchoolRepository schoolRepository, SubmissionMapper submissionMapper) {
 	  this.studentRepository = studentRepository;
 	  this.studentMapper = studentMapper;
 	  this.schoolRepository = schoolRepository;
+	  this.submissionMapper = submissionMapper;
    }
    
    public List<StudentDTO> getAllStudents() {
@@ -65,6 +69,16 @@ public class StudentService {
 	  Student updatedStudent = studentRepository.save(student);
 	  System.out.println("Student updated successfully");
 	  return studentMapper.toDTO(updatedStudent);
+   }
+   
+   public List<SubmissionDTO> getStudentSubmissions(Long studentId) {
+	  Student student = studentRepository.findById(studentId)
+										 .orElseThrow(() -> new StudentNotFoundException("Student not found"));
+	  
+	  return student.getSubmissions()
+					.stream()
+					.map(submissionMapper::toDTO)
+					.collect(Collectors.toList());
    }
    
    public void deleteStudent(Long id) {
