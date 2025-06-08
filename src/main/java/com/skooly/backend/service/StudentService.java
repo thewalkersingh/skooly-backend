@@ -41,6 +41,7 @@ public class StudentService {
 		 student.setSchool(school);
 	  }
 	  Student savedStudent = studentRepository.save(student);
+	  System.out.println("Student saved successfully");
 	  return studentMapper.toDTO(savedStudent);
    }
    
@@ -62,6 +63,7 @@ public class StudentService {
 	  Student student = studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException("Student not found"));
 	  studentMapper.updateStudentFromDTO(studentDTO, student);
 	  Student updatedStudent = studentRepository.save(student);
+	  System.out.println("Student updated successfully");
 	  return studentMapper.toDTO(updatedStudent);
    }
    
