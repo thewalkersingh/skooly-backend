@@ -44,8 +44,11 @@ public class Student {
    @JoinColumn(name = "school_id")
    @JsonBackReference
    private School school;
-   // Many-to-many relationship with Course.
+   
    @ManyToMany(mappedBy = "students")
    @JsonBackReference(value = "course-student")
    private List<Course> courses = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+   private List<Attendance> attendanceRecords = new ArrayList<>();
 }
