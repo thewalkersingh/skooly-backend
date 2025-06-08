@@ -13,6 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
    public void addCorsMappings(CorsRegistry registry) {
 	  registry.addMapping("/api/**")
 			  .allowedOrigins("http://localhost:5173", "https://skooly.vercel.app")
+			  .allowedOrigins("https://skooly-diwakar-singhs-projects.vercel.app")
 			  .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 //			  .allowCredentials(true) // enable this after auth feature
 			  .allowedHeaders("*");

@@ -2,7 +2,7 @@ spring:
   profiles:
     active: dev # default profile, overridden by Render via ENV
 
-logging:
-  level:
-    root: DEBUG
-    org.springframework: DEBUG
+#logging:
+#  level:
+#    root: DEBUG
+#    org.springframework: DEBUG

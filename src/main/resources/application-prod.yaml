@@ -14,4 +14,4 @@ spring:
 
 app:
   allowed:
-    origins: "https://skooly.vercel.app"
+    origins: "https://skooly.vercel.app/","https://skooly-diwakar-singhs-projects.vercel.app/"
