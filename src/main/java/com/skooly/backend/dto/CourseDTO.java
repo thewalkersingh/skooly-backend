@@ -1,4 +1,5 @@
 package com.skooly.backend.dto;
+import com.skooly.backend.enums.Subject;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -25,4 +26,6 @@ public class CourseDTO {
    private Long teacherId;
    // List of student IDs enrolled in the course.
    private List<Long> studentIds;
+   private List<Subject> subjects;
+   private FeeRecordDTO feeRecord;
 }

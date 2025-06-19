@@ -40,4 +40,6 @@ public class StudentDTO {
    @NotNull(message = "School ID is required")
    private Long schoolId;
    private List<Long> submissionIds;
+   private List<FeeRecordDTO> feeRecords;
+   private List<PaymentDTO> payments;
 }

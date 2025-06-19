@@ -1,4 +1,4 @@
-package com.skooly.backend.entity;
+package com.skooly.backend.enums;
 
 public enum AttendanceStatus {
    PRESENT,

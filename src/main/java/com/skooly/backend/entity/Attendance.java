@@ -1,5 +1,6 @@
 package com.skooly.backend.entity;
 
+import com.skooly.backend.enums.AttendanceStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;

@@ -3,7 +3,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class School {
    private String address;
    private String contactNumber;
    private String email;
-   private LocalDateTime creationDate;
+   private LocalDate creationDate;
    private String schoolType;
    private Integer studentCount;
    

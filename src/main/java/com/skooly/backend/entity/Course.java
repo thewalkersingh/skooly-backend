@@ -26,20 +26,22 @@ public class Course {
    private String name;        // Course title
    private String description; // Optional description
    private String schedule;    // You can store schedule details as a string
+   
    @ManyToOne
    @JoinColumn(name = "teacher_id")
    @JsonBackReference   // Prevents infinite recursion when serializing Teacher->Course->Teacher
    private Teacher teacher;
    // Many courses can have many students
    @ManyToMany
-   @JoinTable(
-		   name = "course_student",
+   @JoinTable(name = "course_student",
 		   joinColumns = @JoinColumn(name = "course_id"),
-		   inverseJoinColumns = @JoinColumn(name = "student_id")
-   )
+		   inverseJoinColumns = @JoinColumn(name = "student_id"))
    @JsonManagedReference(value = "course-student")
    private List<Student> students = new ArrayList<>();
    
    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    private List<Assignment> assignments = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+   private List<FeeRecord> feeRecords = new ArrayList<>();
 }

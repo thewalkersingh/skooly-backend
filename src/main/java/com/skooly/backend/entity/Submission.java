@@ -1,4 +1,5 @@
 package com.skooly.backend.entity;
+import com.skooly.backend.enums.SubmissionStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

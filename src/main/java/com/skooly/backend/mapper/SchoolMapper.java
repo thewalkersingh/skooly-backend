@@ -12,7 +12,7 @@ public interface SchoolMapper {
    SchoolDTO toDto(School school);
    
    // When converting from DTO to entity, provide default values if needed
-   @Mapping(target = "creationDate", expression = "java(java.time.LocalDateTime.now())")
+   @Mapping(target = "creationDate", expression = "java(java.time.LocalDate.now())")
    @Mapping(target = "teachers", ignore = true)
    School toEntity(SchoolDTO schoolDTO);
    

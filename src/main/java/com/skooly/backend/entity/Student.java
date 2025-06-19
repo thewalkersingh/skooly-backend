@@ -54,4 +54,16 @@ public class Student {
    
    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    private List<Submission> submissions = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+   private List<FeeRecord> feeRecords = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+   private List<Payment> payments = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+   private List<Invoice> invoices = new ArrayList<>();
+   
+   @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+   private List<OverduePayment> overduePayments = new ArrayList<>();
 }
