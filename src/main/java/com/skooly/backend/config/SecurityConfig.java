@@ -19,17 +19,18 @@ public class SecurityConfig {
    @Bean
    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	  http
-			  .csrf(AbstractHttpConfigurer::disable) // For demonstration; consider enabling CSRF protection in production.
+			  .csrf(AbstractHttpConfigurer::disable) // For demonstration; consider enabling CSRF protection in
+			  // production.
 			  .authorizeHttpRequests(auth -> auth
-											 // Only teachers can access grading endpoints.
-											 .requestMatchers("/api/grades/**").hasRole("TEACHER")
-											 // Only students can submit assignments. You can also secure further
-											 // submission endpoints if needed.
-											 .requestMatchers("/api/submissions/**").hasRole("STUDENT")
-											 // Assignments endpoints require authenticated users.
-											 .requestMatchers("/api/assignments/**").authenticated()
-											 // Other endpoints remain public
-											 .anyRequest().permitAll()
+							  // Only teachers can access grading endpoints.
+							  .requestMatchers("/api/grades/**").hasRole("TEACHER")
+							  // Only students can submit assignments. You can also secure further
+							  // submission endpoints if needed.
+							  .requestMatchers("/api/submissions/**").hasRole("STUDENT")
+							  // Assignments endpoints require authenticated users.
+							  .requestMatchers("/api/assignments/**").authenticated()
+							  // Other endpoints remain public
+							  .anyRequest().permitAll()
 									)
 			  .httpBasic(Customizer.withDefaults()); // Using HTTP Basic authentication for demonstration.
 	  return http.build();
