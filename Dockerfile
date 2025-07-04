@@ -1,4 +1,4 @@
-## Importing JDK and copying required files
+## Setting 1
 #FROM maven:3.8.5-openjdk-17 AS build
 #COPY . .
 #RUN mvn clean package -DskipTests
@@ -11,27 +11,29 @@
 #EXPOSE 8080
 #ENTRYPOINT ["java","-jar","skooly.jar"]
 
-#################### Refined #####################
+## Setting 2
 
-# Stage 1: Build with Maven + Java 17
-FROM maven:3.8.5-openjdk-17 AS build
-WORKDIR /app
+#FROM maven:3.8.5-openjdk-17 AS build
+#WORKDIR /app
+#
+#COPY pom.xml mvnw ./
+#COPY .mvn .mvn
+#RUN chmod +x mvnw
+#RUN ./mvnw dependency:go-offline -B
+#
+#COPY src ./src
+#RUN ./mvnw clean package -DskipTests -B
+#
+#FROM openjdk:17.0.1-jdk-slim AS runtime
+#WORKDIR /app
+#
+#COPY --from=build /app/target/skooly-backend-0.0.1-SNAPSHOT.jar skooly.jar
+#
+#EXPOSE 8080
+#ENTRYPOINT ["java", "-jar", "skooly.jar"]
 
-# Copy Maven wrapper & config first
-COPY pom.xml mvnw ./
-COPY .mvn .mvn
-RUN chmod +x mvnw
-RUN ./mvnw dependency:go-offline -B
-
-# Copy source code
-COPY src ./src
-RUN ./mvnw clean package -DskipTests -B
-
-# Stage 2: Lightweight runtime
-FROM openjdk:17.0.1-jdk-slim AS runtime
-WORKDIR /app
-
-COPY --from=build /app/target/skooly-backend-0.0.1-SNAPSHOT.jar skooly.jar
-
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "skooly.jar"]
+## Setting 3
+FROM eclipse-temurin:17-jdk-alpine
+VOLUME /tmp
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
