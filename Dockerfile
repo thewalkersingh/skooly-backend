@@ -3,7 +3,7 @@ FROM maven:3.9.5-openjdk-21 AS build
 COPY . .
 
 # Set execution permission for the Maven wrapper
-RUN ./mvnw clean package -DskipTests
+RUN mvnw clean package -DskipTests
 
 # Stage 2: Create the final Docker image using OpenJDK 21
 FROM openjdk:21-jdk
