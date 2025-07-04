@@ -1,7 +1,7 @@
 # Importing JDK and copying required files
 FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
-RUN mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Stage 2: Create the final Docker image using OpenJDK 21
 FROM openjdk:17.0.1-jdk-slim
