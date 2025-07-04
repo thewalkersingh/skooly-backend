@@ -1,39 +1,23 @@
-## Setting 1
-#FROM maven:3.8.5-openjdk-17 AS build
-#COPY . .
-#RUN mvn clean package -DskipTests
-#
-## Stage 2: Create the final Docker image using OpenJDK 21
-#FROM openjdk:17.0.1-jdk-slim
-#
-## Copy the JAR from the build stage
-#COPY --from=build /target/skooly-backend-0.0.1-SNAPSHOT.jar skooly.jar
-#EXPOSE 8080
-#ENTRYPOINT ["java","-jar","skooly.jar"]
+# Stage 1: Build your app with Maven on Java 21
+FROM maven:3.9.5-eclipse-temurin-21 AS build
+WORKDIR /app
 
-## Setting 2
+# Cache dependencies: copy wrapper, pom, then download
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline -B
 
-#FROM maven:3.8.5-openjdk-17 AS build
-#WORKDIR /app
-#
-#COPY pom.xml mvnw ./
-#COPY .mvn .mvn
-#RUN chmod +x mvnw
-#RUN ./mvnw dependency:go-offline -B
-#
-#COPY src ./src
-#RUN ./mvnw clean package -DskipTests -B
-#
-#FROM openjdk:17.0.1-jdk-slim AS runtime
-#WORKDIR /app
-#
-#COPY --from=build /app/target/skooly-backend-0.0.1-SNAPSHOT.jar skooly.jar
-#
-#EXPOSE 8080
-#ENTRYPOINT ["java", "-jar", "skooly.jar"]
+# Now copy source and build
+COPY src ./src
+RUN ./mvnw clean package -DskipTests -B
 
-## Setting 3
-FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
-COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Stage 2: Lightweight runtime with Java 21 JDK
+FROM eclipse-temurin:21-jdk-jammy AS runtime
+WORKDIR /app
+
+# Copy the built JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
