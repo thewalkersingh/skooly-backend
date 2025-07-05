@@ -1,18 +1,20 @@
-#application-prod.yaml
 spring:
+  config:
+    activate:
+      on-profile: prod
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:mysql://mysql.railway.internal:3306/railway
+    username: root
+    password: oocjAqIPLcmmIiCosJbQzwVnZkCSnqCj
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
-      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+      ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
 
 app:
   allowed:
-    origins: "https://skooly.vercel.app"
+    origins: "https://skooly.vercel.app,https://skooly-diwakar-singhs-projects.vercel.app"

@@ -1,9 +1,12 @@
-#application.yaml
 spring:
   profiles:
-    active: dev # default profile, overridden by Render via ENV
+    active: ${ENV:dev}
 
-#logging:
-#  level:
-#    root: DEBUG
-#    org.springframework: DEBUG
+  security:
+    user:
+      name: user
+      password: password
+
+logging:
+  level:
+    root: INFO

@@ -13,7 +13,7 @@ COPY src ./src
 RUN ./mvnw clean package -DskipTests -B
 
 # Stage 2: Lightweight runtime with Java 21 JDK
-FROM eclipse-temurin:21-jdk-jammy AS runtime
+FROM eclipse-temurin:21-jdk-jammy
 WORKDIR /app
 
 # Copy the built JAR from the build stage
